@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaigonMarket</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background:#000;
+      color:#fff;
+      overflow-x:hidden;
+    }
+
+    header {
+      position:fixed;
+      width:100%;
+      top:0;
+      background:rgba(0,0,0,0.9);
+      padding:15px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:1000;
+      border-bottom:1px solid #c9a227;
+    }
+
+    header h1 {
+      color:#c9a227;
+      font-weight:700;
+      font-size:22px;
+    }
+
+    nav ul {
+      list-style:none;
+      display:flex;
+      gap:25px;
+    }
+
+    nav ul li {
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    nav ul li:hover {
+      color:#c9a227;
+    }
+
+    .hero {
+      height:100vh;
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding-top:60px;
+      transition:background-image 1s ease-in-out;
+    }
+
+    .hero h2 {
+      font-size:42px;
+      background:rgba(0,0,0,0.6);
+      padding:20px 40px;
+      border:1px solid #c9a227;
+      color:#fff;
+    }
+
+    .products {
+      padding:80px 40px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+      gap:30px;
+    }
+
+    .card {
+      background:#111;
+      border:1px solid #222;
+      border-radius:15px;
+      overflow:hidden;
+      transition:0.3s;
+      box-shadow:0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .card:hover {
+      transform:translateY(-5px);
+      border-color:#c9a227;
+    }
+
+    .card img {
+      width:100%;
+      height:220px;
+      object-fit:cover;
+    }
+
+    .card-content {
+      padding:15px;
+    }
+
+    .card h3 {
+      font-size:18px;
+      margin-bottom:8px;
+    }
+
+    .price {
+      color:#c9a227;
+      font-weight:600;
+      margin-bottom:5px;
+    }
+
+    .rating {
+      font-size:14px;
+      margin-bottom:10px;
+    }
+
+    .btn {
+      display:block;
+      text-align:center;
+      padding:10px;
+      margin-top:8px;
+      border-radius:8px;
+      text-decoration:none;
+      font-size:14px;
+      font-weight: 600;
+      transition:0.3s;
+    }
+
+    .whatsapp {
+      background:#25D366;
+      color:#000;
+    }
+
+    .tmoney {
+      background:#c9a227;
+      color:#000;
+    }
+
+    .btn:hover {
+      opacity:0.8;
+    }
+
+    footer {
+      text-align:center;
+      padding:30px;
+      border-top:1px solid #222;
+      margin-top:40px;
+      font-size:14px;
+    }
+
+    @media(max-width:768px){
+      nav ul { display:none; }
+      .hero h2 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>SaigonMarket</h1>
+  <nav>
+    <ul>
+      <li onclick="filterProducts('all')">Tous</li>
+      <li onclick="filterProducts('bijouterie')">Bijouterie</li>
+      <li onclick="filterProducts('cosmetique')">Cosmétiques</li>
+      <li onclick="filterProducts('electronique')">Électronique</li>
+      <li onclick="filterProducts('musculation')">Musculation</li>
+      <li onclick="filterProducts('vetement')">Vêtements</li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero" id="hero">
+  <h2>Bienvenue sur SaigonMarket</h2>
+</section>
+
+<section class="products" id="products"></section>
+
+<footer>
+  © 2026 SaigonMarket - Contact WhatsApp : +228 92 66 29 71
+</footer>
+
+<script>
+  const phoneNumber = "22892662971";
+
+  const heroImages = [
+    "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+    "https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+    "https://images.unsplash.com/photo-1512499617640-c2f999098c01",
+    "https://images.unsplash.com/photo-1441986300917-64674bd600d8", // Nouvelle image 1
+    "https://images.unsplash.com/photo-1472851294608-062f824d29cc"  // Nouvelle image 2
+  ];
+
+  let currentImage = 0;
+  const hero = document.getElementById('hero');
+
+  function changeBackground(){
+    hero.style.backgroundImage = `url(${heroImages[currentImage]})`;
+    currentImage = (currentImage + 1) % heroImages.length;
+  }
+  setInterval(changeBackground, 5000);
+  changeBackground();
+
+  const products = [
+    {name:"Montre Luxe", price:"35 000 FCFA", rating:"4.8", category:"bijouterie", image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500"},
+    {name:"Collier Élégant", price:"18 000 FCFA", rating:"4.6", category:"bijouterie", image:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500"},
+    {name:"Bracelet Or", price:"22 000 FCFA", rating:"4.7", category:"bijouterie", image:"https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500"},
+    {name:"Crème Visage", price:"12 000 FCFA", rating:"4.5", category:"cosmetique", image:"https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500"},
+    {name:"Lotion Hydratante", price:"9 500 FCFA", rating:"4.4", category:"cosmetique", image:"https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=500"},
+    {name:"Parfum Premium", price:"25 000 FCFA", rating:"4.9", category:"cosmetique", image:"https://images.unsplash.com/photo-1541643600914-78b084683601?w=500"},
+    {name:"Ordinateur Portable", price:"350 000 FCFA", rating:"4.8", category:"electronique", image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500"},
+    {name:"Téléviseur HD", price:"280 000 FCFA", rating:"4.6", category:"electronique", image:"https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500"},
+    {name:"Imprimante", price:"95 000 FCFA", rating:"4.5", category:"electronique", image:"https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=500"},
+    {name:"Climatiseur", price:"420 000 FCFA", rating:"4.7", category:"electronique", image:"https://images.unsplash.com/photo-1631548484113-4a1f349d97a9?w=500"},
+    {name:"Haltères", price:"40 000 FCFA", rating:"4.6", category:"musculation", image:"https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?w=500"},
+    {name:"Banc de Musculation", price:"120 000 FCFA", rating:"4.7", category:"musculation", image:"https://images.unsplash.com/photo-1591940742878-13aba4b7a35e?w=500"},
+    {name:"Tapis Fitness", price:"15 000 FCFA", rating:"4.5", category:"musculation", image:"https://images.unsplash.com/photo-1592432678899-354929851722?w=500"},
+    {name:"Barre Olympique", price:"75 000 FCFA", rating:"4.8", category:"musculation", image:"https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=500"},
+    {name:"T-Shirt Homme", price:"10 000 FCFA", rating:"4.4", category:"vetement", image:"https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500"},
+    {name:"Jean Slim", price:"22 000 FCFA", rating:"4.6", category:"vetement", image:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=500"},
+    {name:"Veste Élégante", price:"45 000 FCFA", rating:"4.7", category:"vetement", image:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500"},
+    {name:"Robe Chic", price:"30 000 FCFA", rating:"4.8", category:"vetement", image:"https://images.unsplash.com/photo-1539008835270-343243f7f014?w=500"},
+    {name:"Sneakers", price:"28 000 FCFA", rating:"4.5", category:"vetement", image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500"},
+    {name:"Sac à Main", price:"32 000 FCFA", rating:"4.6", category:"bijouterie", image:"https://images.unsplash.com/photo-1584917033904-4934ed5496a3?w=500"}
+  ];
+
+  function displayProducts(filter){
+    const container = document.getElementById('products');
+    container.innerHTML = "";
+
+    const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+    filtered.forEach(product => {
+      const message = encodeURIComponent(`Bonjour, je suis intéressé par le produit ${product.name} au prix de ${product.price} sur SaigonMarket.`);
+      const tmoneyMessage = encodeURIComponent(`Bonjour, je souhaite payer le produit ${product.name} via TMoney. Pouvez-vous m'envoyer les instructions ?`);
+
+      container.innerHTML += `
+        <div class="card">
+          <img src="${product.image}" alt="${product.name}">
+          <div class="card-content">
+            <h3>${product.name}</h3>
+            <div class="price">${product.price}</div>
+            <div class="rating">⭐ ${product.rating}</div>
+            <a class="btn whatsapp" target="_blank" href="https://wa.me/${phoneNumber}?text=${message}">Commander sur WhatsApp</a>
+            <a class="btn tmoney" target="_blank" href="https://wa.me/${phoneNumber}?text=${tmoneyMessage}">Payer via TMoney</a>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  function filterProducts(category){
+    displayProducts(category);
+  }
+
+  displayProducts('all');
+</script>
+
+</body>
+</html>
